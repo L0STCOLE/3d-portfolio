@@ -10,8 +10,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setScrolled(scrollTop > 100);
+      setScrolled(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -19,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const sections = document.querySelectorAll("div[id]");
+    const sections = document.querySelectorAll("span.hash-span[id]");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,7 +29,7 @@ const Navbar = () => {
       },
       {
         threshold: 0.2,
-        rootMargin: '0px 0px -50% 0px'
+        rootMargin: "0px 0px -50% 0px",
       }
     );
 
@@ -41,65 +40,70 @@ const Navbar = () => {
 
   return (
     <nav
-      className="w-full flex items-center bg-gradient-to-b from-black sm:bg-none p-8 sm:px-16 sm:py-10 fixed z-40 pointer-events-none"
+      className={`w-full flex items-center fixed z-40 px-6 py-5 sm:px-12 transition-colors duration-300 ${
+        scrolled ? "bg-primary border-b border-border" : "bg-transparent"
+      }`}
     >
-      <div className='w-full flex justify-between items-start mx-auto'>
+      <div className="w-full flex justify-between items-center mx-auto max-w-6xl">
         <Link
-          to='/'
-          className='flex items-start'
+          to="/"
+          className="flex items-center"
           onClick={() => {
             setActive("hero");
             window.scrollTo(0, 0);
           }}
         >
-          <p className='text-white text-[26px] lg:text-[36px] font-bold pointer-events-auto cursor-pointer flex'>
-            CB
+          <p className="font-mono text-white text-[16px] sm:text-[18px] cursor-pointer">
+            <span className="text-quaternary">$</span> colin@barber
           </p>
         </Link>
 
-        <ul className='list-none hidden sm:flex flex-col gap-5'>
+        <ul className="list-none hidden sm:flex items-center gap-8">
           {navLinks.map((nav) => (
-            <li
-              key={nav.id}
-              className={`relative flex items-center ${
-                active === nav.id ? "text-white" : "text-slate-500"
-              } hover:text-white text-[18px] lg:text-[24px] font-bold pointer-events-auto cursor-pointer`}
-              onClick={() => setActive(nav.id)}
-            >
-              {active === nav.id && (
-                <div className="fixed right-10 w-2 h-6 lg:h-8 bg-quaternary"></div>
-              )}
-              <a href={`#${nav.id}`}>{nav.title}</a>
+            <li key={nav.id}>
+              <a
+                href={`#${nav.id}`}
+                onClick={() => setActive(nav.id)}
+                className={`font-mono text-sm uppercase tracking-wide pb-1 border-b transition-colors ${
+                  active === nav.id
+                    ? "text-quaternary border-quaternary"
+                    : "text-secondary border-transparent hover:text-white"
+                }`}
+              >
+                {nav.title}
+              </a>
             </li>
           ))}
         </ul>
 
-        <div className='sm:hidden flex flex-1 justify-end items-center'>
+        <div className="sm:hidden flex items-center">
           <img
             src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain pointer-events-auto cursor-pointer'
+            alt="menu"
+            className="w-[24px] h-[24px] object-contain cursor-pointer"
             onClick={() => setToggle(!toggle)}
           />
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-30 rounded-xl`}
+            } p-6 absolute top-16 right-0 mx-4 my-2 min-w-[180px] z-30 bg-tertiary border border-border`}
           >
-            <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
+            <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               {navLinks.map((nav) => (
-                <li
-                  key={nav.id}
-                  className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === nav.id ? "text-quaternary" : "text-secondary"
-                  }`}
-                  onClick={() => {
-                    setToggle(!toggle);
-                    setActive(nav.id);
-                  }}
-                >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                <li key={nav.id}>
+                  <a
+                    href={`#${nav.id}`}
+                    onClick={() => {
+                      setToggle(false);
+                      setActive(nav.id);
+                    }}
+                    className={`font-mono text-sm uppercase tracking-wide ${
+                      active === nav.id ? "text-quaternary" : "text-secondary"
+                    }`}
+                  >
+                    {nav.title}
+                  </a>
                 </li>
               ))}
             </ul>

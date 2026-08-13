@@ -1,6 +1,6 @@
 const styles = {
   sectionText:
-    "text-white font-bold md:text-[80px] sm:text-[50px] text-[40px]",
+    "text-white font-bold font-mono md:text-[48px] sm:text-[36px] text-[28px]",
 };
 
 export { styles };

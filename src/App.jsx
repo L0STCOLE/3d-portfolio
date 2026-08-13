@@ -1,27 +1,23 @@
-import { useEffect, useRef } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import { Contact, Experience, Hero, Navbar, Portfolio } from "./components";
+import { Contact, Experience, Hero, Navbar, Projects, Skills } from "./components";
 
 const App = () => {
-  const wrapperRef = useRef(null);
-
   return (
     <BrowserRouter>
-      <div className='relative z-0 bg-primary'>
+      <div className="relative z-0 bg-primary">
         <Navbar />
-        <div className='wrapper' ref={wrapperRef}>
-          <div id="hero" className='z-10'>
-            <Hero scrollContainer={wrapperRef} />
-          </div>
-          <div id="portfolio" className='relative z-30 bg-primary mt-[-2px]'>
-            <Portfolio />
-          </div>
-          <div id="experience" className='relative z-30 bg-primary'>
-            <Experience />
-          </div>
-          <div id="contact" className='relative z-30 bg-primary'>
-            <Contact />
-          </div>
+        <Hero />
+        <div className="relative z-10 bg-primary py-16 md:py-24">
+          <Experience />
+        </div>
+        <div className="relative z-10 bg-primary py-16 md:py-24 border-t border-border">
+          <Projects />
+        </div>
+        <div className="relative z-10 bg-primary py-16 md:py-24 border-t border-border">
+          <Skills />
+        </div>
+        <div className="relative z-10 bg-primary py-16 md:py-24 border-t border-border">
+          <Contact />
         </div>
       </div>
     </BrowserRouter>

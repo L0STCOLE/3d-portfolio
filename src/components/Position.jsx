@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const produceSpans = (text, animation) => {
   return text.split("").map((letter, index) => (
@@ -7,20 +7,23 @@ const produceSpans = (text, animation) => {
       className={`inline-block transform-style-3d origin-bottom ${animation}`}
       style={{ animationDelay: `${index * 0.05}s` }}
     >
-      {letter === " " ? "\u00A0" : letter}
+      {letter === " " ? " " : letter}
     </span>
   ));
 };
 
-const Position = () => {
+const Position = ({ roles }) => {
+  const [first, second] = roles;
+
   return (
-    <div className="relative cursor-default font-medium text-white text-[16px] xs:text-[20px] sm:text-[30px] md:text-[36px] 2xl:text-[66px] leading-[32px] 2xl:leading-[40px] w-full flex justify-center items-center">
-      <div className="absolute inset-0 top-[-30px] sm:top-[-10px] lg:top-0 flex flex-col">
-        <div className="text first absolute left-1 md:left-2 2xl:left-4 flex" aria-label="Software Developer">
-          {produceSpans("Software Developer", "animate-textRotate1")}
+    <div className="relative cursor-default font-mono font-semibold text-quaternary text-[14px] xs:text-[18px] sm:text-[22px] md:text-[26px] leading-[32px] w-full flex items-center">
+      <span className="text-secondary mr-2">$</span>
+      <div className="relative overflow-hidden h-[32px] flex-1">
+        <div className="absolute left-0 flex" aria-label={first}>
+          {produceSpans(first, "animate-textRotate1")}
         </div>
-        <div className="text second absolute left-1 md:left-2 2xl:left-4 flex" aria-label="Content Creator">
-          {produceSpans("Penetration Tester", "animate-textRotate2")}
+        <div className="absolute left-0 flex" aria-label={second}>
+          {produceSpans(second, "animate-textRotate2")}
         </div>
       </div>
     </div>

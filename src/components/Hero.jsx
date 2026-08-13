@@ -1,31 +1,61 @@
-import { SpacemanCanvas } from ".";
 import Position from "./Position";
+import { roles, summary } from "../data";
 
-const Hero = ({ scrollContainer }) => {
+const Hero = () => {
   return (
-    <section className="parallax">
-      <div className='parallax__content absolute top-[10%] sm:top-[16%] lg:top-[24%] w-full mx-auto lg:pl-[38vh] lg:pr-[30vh] xl:pl-96 xl:pr-72 2xl:px-40 3xl:px-60 flex flex-col lg:flex-row items-start z-10'>
-        <div className="flex-1 lg:mb-0">
-          <h1 className='font-medium text-white text-[40px] xs:text-[50px] sm:text-[68px] md:text-[80px] lg:text-[100px] 2xl:text-[180px] leading-[110px] 2xl:leading-[160px]'>
-            Colin Barber
-          </h1>
-          <Position />
+    <section className="relative min-h-screen w-full flex items-center bg-primary bg-grid overflow-hidden">
+      <span className="hash-span" id="hero">
+        &nbsp;
+      </span>
+      <div className="w-full max-w-5xl mx-auto px-6 sm:px-16 lg:px-24 py-32">
+        <p className="font-mono text-secondary text-sm sm:text-base mb-4">
+          {">"} whoami
+        </p>
+
+        <h1 className="font-bold text-white text-[40px] xs:text-[52px] sm:text-[68px] lg:text-[88px] leading-[1.05]">
+          Colin Barber
+        </h1>
+
+        <div className="mt-4 max-w-md sm:max-w-lg">
+          <Position roles={roles} />
         </div>
-        <div className="flex-1 flex justify-start lg:justify-end mt-4 sm:mt-14 ml-8 xs:ml-[-4vh] sm:ml-[-17vh] md:ml-[-26vh] lg:mt-10 2xl:mt-0">
-          <div className='font-bold text-[20px] sm:text-[30px] md:text-[36px] 2xl:text-[46px] sm:leading-[40px] md:leading-[50px] 2xl:leading-[60px] streaky-glow max-w-sm 2xl:max-w-lg text-white text-left'>
-            I love learning <br/> 
-          </div>
+
+        <p className="mt-8 max-w-2xl text-secondary text-base sm:text-lg leading-relaxed">
+          {summary}
+        </p>
+
+        <p className="mt-4 font-mono text-xs sm:text-sm text-secondary tracking-wide">
+          Austin, TX
+        </p>
+
+        <div className="mt-10 flex flex-wrap gap-4">
+          <a
+            href="#experience"
+            className="border border-border px-6 py-3 font-mono text-sm uppercase tracking-wide text-white hover:border-quaternary hover:text-quaternary transition-colors"
+          >
+            Experience
+          </a>
+          <a
+            href="#projects"
+            className="border border-border px-6 py-3 font-mono text-sm uppercase tracking-wide text-white hover:border-quaternary hover:text-quaternary transition-colors"
+          >
+            Projects
+          </a>
+          <a
+            href="#contact"
+            className="border border-border px-6 py-3 font-mono text-sm uppercase tracking-wide text-white hover:border-quaternary hover:text-quaternary transition-colors"
+          >
+            Contact
+          </a>
+          <a
+            href="/resume.pdf"
+            download
+            className="bg-quaternary text-primary px-6 py-3 font-mono text-sm font-bold uppercase tracking-wide hover:opacity-90 transition-opacity"
+          >
+            Resume
+          </a>
         </div>
       </div>
-
-      <img className="parallax__stars" src="./parallax/1Stars.svg" alt="" />
-      <img className="parallax__planets" src="./parallax/2Planets.svg" alt="" />
-      <img className="parallax__mountain1" src="./parallax/3Mountain.svg" alt="" />
-      <img className="parallax__mountain2" src="./parallax/4Mountain.svg" alt="" />
-      <img className="parallax__crater" src="./parallax/5Crater.svg" alt="" />
-      <img className="parallax__sun" src="./parallax/6Sun.svg" alt="" />
-
-      <SpacemanCanvas scrollContainer={scrollContainer} />
     </section>
   );
 };

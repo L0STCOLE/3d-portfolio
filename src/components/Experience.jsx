@@ -10,44 +10,41 @@ const ExperienceCard = ({ experience, onClick, isActive, isMobile }) => {
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer sm:mb-5 p-5 max-w-xl relative sm:text-left text-center ${
-        isMobile ? "text-quaternary" : ""
+      className={`cursor-pointer border-l-2 pl-5 py-4 transition-colors ${
+        isActive || isMobile ? "border-quaternary" : "border-border"
       }`}
     >
-      {(isActive || isMobile) && (
-        <div className="absolute left-0 top-0 bottom-0 w-3 md:w-5 bg-tertiary my-6 sm:block hidden"></div>
-      )}
       <h3
-        className={`text-xl lg:text-2xl xl:text-3xl font-bold sm:pl-8 ${
-          isActive || isMobile ? "text-quaternary" : "text-slate-600"
+        className={`font-mono text-base sm:text-lg font-bold transition-colors ${
+          isActive || isMobile ? "text-quaternary" : "text-secondary"
         }`}
       >
         {experience.title}
       </h3>
       <p
-        className={`text-md lg:text-lg xl:text-2xl sm:font-medium pt-2 sm:pl-8 ${
-          isActive || isMobile ? "text-white" : "text-slate-600"
+        className={`mt-1 text-sm sm:text-base transition-colors ${
+          isActive || isMobile ? "text-white" : "text-secondary"
         }`}
       >
-        {experience.company_name} | {experience.date}
+        {experience.company_name}
       </p>
+      <p className="mt-1 font-mono text-xs text-secondary">{experience.date}</p>
     </div>
   );
 };
 
 const ExperienceDetails = ({ experience }) => {
   return (
-    <div className="mt-5">
-      <ul className="max-w-7xl list-none space-y-8 border-4 lg:border-8 rounded-xl lg:rounded-3xl p-6">
-        {experience.details.map((detail, index) => (
-          <li
-            key={`experience-detail-${index}`}
-            className="text-slate-500 font-semibold text-[10px] xs:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[28px] lg:leading-[30px]"
-            dangerouslySetInnerHTML={{ __html: detail }}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul className="border border-border bg-tertiary p-6 lg:p-8 space-y-4 list-none">
+      {experience.details.map((detail, index) => (
+        <li
+          key={`experience-detail-${index}`}
+          className="text-secondary text-sm sm:text-base leading-relaxed pl-4 relative before:content-['>'] before:absolute before:left-0 before:text-quaternary before:font-mono"
+        >
+          {detail}
+        </li>
+      ))}
+    </ul>
   );
 };
 
@@ -60,7 +57,7 @@ const Experience = () => {
       setIsMobile(window.innerWidth < 640);
     };
 
-    handleResize(); // Check initial screen size
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -69,15 +66,13 @@ const Experience = () => {
   }, []);
 
   return (
-    <div className="sm:my-20">
+    <div className="px-6 md:px-20 lg:px-40">
       <motion.div variants={textVariant()}>
-        <h2 className={`${styles.sectionText} text-center`}>
-          Experience
-        </h2>
+        <h2 className={`${styles.sectionText}`}>Experience</h2>
       </motion.div>
 
-      <div className="relative mt-10 md:mt-20 md:p-20 flex flex-col items-center sm:flex-row sm:items-start">
-        <div className="flex flex-col z-10 sm:w-auto sm:w-full">
+      <div className="mt-10 md:mt-16 grid grid-cols-1 sm:grid-cols-[minmax(0,340px)_1fr] gap-8 items-start">
+        <div className="flex flex-col gap-1">
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={`experience-${index}`}
@@ -89,12 +84,10 @@ const Experience = () => {
           ))}
         </div>
 
-        <div className="flex justify-end z-10 sm:block hidden">
-          <ExperienceDetails experience={selectedJob} />
-        </div>
+        <ExperienceDetails experience={selectedJob} />
       </div>
     </div>
   );
 };
 
-export default SectionWrapper(Experience, "portfolio");
+export default SectionWrapper(Experience, "experience");

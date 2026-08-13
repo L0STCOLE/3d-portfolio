@@ -4,17 +4,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#011825",
-        secondary: "#F0EFEB",
-        tertiary: "#0D3056",
-        quaternary: "#1689C8",
+        primary: "#05070a",
+        secondary: "#8b96a5",
+        tertiary: "#0d1117",
+        quaternary: "#39ff88",
+        border: "#1c2530",
       },
       screens: {
         'xs': "450px",
         '3xl': "2160px",
       },
-      backgroundImage: {
-        "hero-pattern": "url('/src/assets/herobg.jpeg')",
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "sans-serif"],
       },
       keyframes: {
         textRotate1: {
